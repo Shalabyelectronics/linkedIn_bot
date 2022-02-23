@@ -3,6 +3,8 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 import time
 import shutil
 import os
@@ -45,11 +47,15 @@ def search_jobs(job_title):
     for job_number in range(1, 26):
         driver.find_element(By.XPATH,
                             f'/html/body/div[6]/div[3]/div[3]/div[2]/div/section[1]/div/div/ul/li[{job_number}]/div/div').click()
-        time.sleep(3)
+        WebDriverWait(driver,10).until(ec.element_to_be_clickable((By.XPATH, '/html/body/div[6]/div[3]/div['
+                                                                                 '3]/div[2]/div/section['
+                                                                                 '2]/div/div/div[1]/div/div[ '
+                                      '1]/div/div[2]/div[3]/div/button')))
+
         driver.find_element(By.XPATH, '/html/body/div[6]/div[3]/div[3]/div[2]/div/section[2]/div/div/div[1]/div/div['
                                       '1]/div/div[2]/div[3]/div/button').click()
-    check_saved_jobs = driver.find_element(By.XPATH, '//*[@id="ember1016"]/div/p/a')
-    time.sleep(1)
+    jobs_button.click()
+    check_saved_jobs = driver.find_element(By.XPATH, '/html/body/div[6]/div[3]/div/div[3]/div/div/div/div/div/div[1]/nav/div/ul/li[1]/a/span')
     check_saved_jobs.click()
 
 
